@@ -1,43 +1,39 @@
 <template>
-  <div id="container-content"> <!-- Elemento contêiner principal -->
+  <div id="container-content">
     <div id="weather-header">
       <div id="weather-header-text">
-        <img src="/sun-icon.png" alt="Icone do Header" />
-        <h1 id="header-h1">ClimaTempo</h1>
+        <img src="/sun-icon.png" alt="Icone do Header">
+        <h1>ClimaTempo</h1>
       </div>
 
       <div id="weather-search">
-        <input id="input-search" v-model="city" placeholder="Digite o nome da cidade" />
-        <img src="/lupa%20sem%20fundo.png" @click="fetchWeather" alt="Icone de Pesquisa" />
+        <input v-model="city" placeholder="Digite o nome da cidade" />
+        <img src="/lupa%20sem%20fundo.png" @click="fetchWeather" alt="Icone de Pesquisa"/>
       </div>
     </div>
 
-    <div id="weather-component">
-      <div id="container-first-info" v-if="weather">
-        <div id="weather-main-info">
-          <img id="weather-icon" src="/weather-icon.png" alt="Icone do Main" />
+    <div id="weather-first-info-container" v-if="weather && weather.main && weather.wind && weather.weather.length">
+        <div id="weather-basic-advanced-info">
           <WeatherInfo
               :cityName="weather.name"
               :temperature="weather.main.temp"
               :description="weather.weather[0].description"
           />
+          <img id="weather-icon" src="/weather-icon.png" alt="Icone do Clima"/>
           <WeatherDetails
-              v-if="weather.wind"
               :pressure="weather.main.pressure"
               :windSpeed="weather.wind.speed"
               :windDirection="weather.wind.deg"
               :iconUrl="`https://openweathermap.org/img/wn/${weather.weather[0].icon}.png`"
           />
         </div>
-        <div id="forecast-info">
-          <h3>Previsão para os próximos 4 dias: </h3>
-        </div>
-        <div id="container-forecast">
-          <WeatherForecast :forecast="forecast" />
-        </div>
-      </div>
+    </div>
+    <div id="weather-forecast-info" v-if="weather">
+      <p id="header-forecast">Clima nos promixos 4 dias:</p>
+      <WeatherForecast  :forecast="forecast" />
     </div>
   </div>
+
 </template>
 
 <script>
@@ -81,116 +77,108 @@ export default {
 };
 </script>
 
-<style scoped>
-* {
+<style>
+*{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-#container-content {
-  width: 100%;
-  height: 100vh;
-  background-color: #4a90e2;
-}
-
-#weather-component {
-  text-align: center;
-}
-
-#container-first-info {
-  background-color: #ccf2ff;
-  width: 100%;
-}
-
-#weather-main-info {
-  background-color: #4a90e2;
-  height: 18rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  margin-top: 15px;
+#container-content{
+  background: #4a90e2;
 }
 
 #weather-header {
+  width: 100%;
   background-color: #05347e;
+  height: 3.5rem;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
-  max-height: 6rem;
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
-  color: white;
-  margin: 0 5px;
-  width: calc(100% - 10px);
-}
-
-#header-h1 {
-  margin-top: 15px;
+  align-items: center;
+  padding: 0 1rem;
 }
 
 #weather-header-text {
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-content: center;
-  height: 5rem;
+  align-items: center;
 }
 
 #weather-header-text img {
-  width: 10rem;
   height: 5rem;
+  margin-right: 0.5rem;
+
+}
+
+#weather-header-text h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: white;
 }
 
 #weather-search {
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  width: 20rem;
-  height: 3rem;
-  margin-top: 1rem;
+  align-items: center;
 }
 
-#input-search {
+#weather-search input {
+  height: 2.6rem;
   border-radius: 24px;
-  width: 14rem;
-  border: none;
-  padding: 1.1rem;
-  margin-right: 0.7rem;
-  font-size: 0.9rem;
+  margin-right: 0.5rem;
   outline: none;
+  padding: 0.5rem 0.8rem;
+  border: none;
 }
 
-#weather-component input {
-  padding: 8px;
-  width: 200px;
+#weather-search img {
+  height: 2rem;
+  cursor: pointer;
 }
 
-#weather-component button {
-  padding: 8px 16px;
-  margin-left: 8px;
+#weather-first-info-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: #4a90e2;
+  padding: 20px;
+  border-radius: 12px;
+  margin-top: 20px;
+  height: 22rem;
+}
+
+#weather-basic-advanced-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+  background-color: #4a90e2;
+  padding: 20px;
+  border-radius: 12px;
 }
 
 #weather-icon {
-  margin-bottom: 15rem !important;
-  margin-right: 3rem;
-  height: 15rem;
+  width: 32rem;
+  height: 20rem;
+  margin-right: 20px;
 }
-
-#forecast-info {
-  width: 50%;
-  height: 4rem;
-  margin-left: 3rem;
-  border-radius: 28px;
+#header-forecast {
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  padding-top: 1rem;
-  background-color: white;
+  align-items: center;
+  justify-content: center;
   font-weight: bold;
+  background-color: #ffffff;
+  width: 20rem;
+  border-radius: 34px;
+  height: 4rem;
+  padding: 10px;
+  margin: 0 auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-#container-first-info {
-  background-color: #4a90e2;
-}
+
+
 </style>

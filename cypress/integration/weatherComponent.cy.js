@@ -4,10 +4,10 @@ describe('WeatherComponent', () => {
         cy.visit('http://localhost:8080');
 
 
-        cy.get('#input-search').should('exist');
+        cy.get('#weather-search input').should('exist');
 
 
-        cy.get('#input-search').type('São Paulo');
+        cy.get('#weather-search input').type('São Paulo');
 
 
         cy.get('img[alt="Icone de Pesquisa"]').click();
@@ -15,6 +15,9 @@ describe('WeatherComponent', () => {
 
         cy.contains('São Paulo').should('exist');
         cy.contains('Clima:').should('exist');
+
+        cy.get('#weather-first-info-container').should('exist');
+        cy.get('#weather-basic-advanced-info').should('exist');
     });
 
     it('deve mostrar um alerta se a cidade não for digitada', () => {

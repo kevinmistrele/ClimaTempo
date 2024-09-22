@@ -1,26 +1,26 @@
 #weather-forecast {
-    background-color: #4a90e2;
-    padding: 15px;
-    border-radius: 10px;
-    text-align: center;
-    width: 100%;
     display: flex;
-    flex-direction: row;
     justify-content: space-around;
-    gap: 1rem;
-    margin-top: 5rem;
-    margin-bottom: 5rem;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: #4a90e2;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 12px;
+    font-weight: bold;
 }
 
 #forecast-properties {
     display: flex;
     flex-direction: column;
-    margin-bottom: 10px;
-    background-color: #ccf2ff;
-    width: 16rem;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background-color: #d4e8ff;
+    border-radius: 8px;
+    padding: 20px;
+    width: 12rem;
+    text-align: center;
+    margin: 10px;
     height: 10rem;
-    gap: 25px;
-    border-radius: 16px;
-    font-weight: bold;
-    padding-top: 10px;
 }
