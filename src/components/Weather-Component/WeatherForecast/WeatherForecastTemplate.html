@@ -1,0 +1,7 @@
+<div id="weather-forecast">
+    <div id="forecast-properties" v-for="(day, index) in forecast" :key="index">
+        <p style="font-size: 15px">{{ formatDate(day.dt_txt) }} </p>
+        <p style="font-size: 28px"> {{ day.main.temp }} °C</p>
+        <p style="font-size: 14px">Clima: {{ day.weather[0].description }}</p>
+    </div>
+</div>
